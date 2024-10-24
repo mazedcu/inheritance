@@ -1,0 +1,29 @@
+
+<div id="root"></div>
+
+
+/* Floating animation */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Common tile styling */
+.tile {
+  animation: float 3s ease-in-out infinite;
+  position: relative;
+  transition: opacity 1s ease-out, visibility 1s ease-out;  /* Apply a smooth transition */
+}
+
+/* Vanishing tiles */
+.vanish {
+  opacity: 0;               /* Make the tile gradually transparent */
+  visibility: hidden;        /* Hide the tile after it fades out */
+}
