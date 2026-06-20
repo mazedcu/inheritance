@@ -24,15 +24,7 @@ body {
   border-bottom: 3px solid #0b5394;
   letter-spacing: 1px;
 }
-.main-title::after {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 4px;
-  background: #2e7d32;
-  margin: 8px auto 0 auto;
-  border-radius: 2px;
-}
+
 
 .canvas-group {
   background: #ffffff;
