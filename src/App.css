@@ -13,10 +13,25 @@ body {
   padding: 24px;
 }
 
-h1 {
+.main-title {
   text-align: center;
-  font-size: 22px;
-  margin-bottom: 24px;
+  font-size: 36px;
+  font-weight: 800;
+  color: #1a3a6e;
+  margin: 0 auto 28px auto;
+  padding-bottom: 12px;
+  max-width: 1000px;
+  border-bottom: 3px solid #0b5394;
+  letter-spacing: 1px;
+}
+.main-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #2e7d32;
+  margin: 8px auto 0 auto;
+  border-radius: 2px;
 }
 
 .canvas-group {

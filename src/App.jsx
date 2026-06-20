@@ -645,7 +645,7 @@ export default function App() {
 
   return (
     <div className="page">
-      <h1>Jawil Furud Determiner</h1>
+      <h1 className="main-title">Inheritance in Islam</h1>
 
       <div className="explanation-box">
         <p>
