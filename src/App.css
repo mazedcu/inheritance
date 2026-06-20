@@ -1,0 +1,362 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: #f0f2f5;
+  color: #1c1e21;
+}
+
+.page {
+  padding: 24px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 24px;
+}
+
+.canvas-group {
+  background: #ffffff;
+  border: 2px solid #d0d7de;
+  border-radius: 12px;
+  padding: 18px;
+  margin: 0 auto 28px auto;
+  max-width: 1000px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.canvas-group .group-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 14px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tile {
+  flex: 0 0 auto;
+  min-width: 130px;
+  max-width: 400px;
+  padding: 16px 18px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 1;
+  transition: background 0.12s ease, box-shadow 0.12s ease;
+}
+
+.tile:not(.placeholder):hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Slow vanish: fade out in place, leaving an equal empty space behind. */
+.tile.vanished {
+  opacity: 0;
+  transform: scale(0.85);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  pointer-events: none;
+  transition: opacity 0.7s ease, transform 0.7s ease, background 0.7s ease,
+    border-color 0.7s ease;
+}
+
+.tile-label {
+  display: inline-block;
+}
+
+/* Determiner group (green) */
+#determiner-group {
+  border-color: #b6dfb6;
+}
+#determiner-group .group-title {
+  color: #2e7d32;
+}
+.determiner-tile {
+  background: #e8f7e8;
+  border: 1px solid #b6dfb6;
+}
+.determiner-tile:hover {
+  background: #d3efd3;
+  box-shadow: 0 3px 8px rgba(46, 125, 50, 0.2);
+}
+.determiner-tile.active {
+  background: #2e7d32;
+  color: #fff;
+  border-color: #2e7d32;
+}
+
+/* Jawil furud group (blue) */
+#jawil-furud-group .group-title {
+  color: #0b5394;
+}
+.furud-tile {
+  background: #e7f0fe;
+  border: 1px solid #aac4f0;
+}
+.furud-tile:hover {
+  background: #d0e1fd;
+  box-shadow: 0 3px 8px rgba(11, 83, 148, 0.2);
+}
+.furud-tile.active {
+  background: #2e7d32;
+  color: #fff;
+  border-color: #2e7d32;
+}
+
+/* Asaba group (purple) */
+#asaba-group {
+  border-color: #d2b6e8;
+}
+#asaba-group .group-title {
+  color: #6a1b9a;
+}
+.asaba-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+.asaba-tile {
+  background: #6a1b9a;
+  color: #fff;
+  border: 1px solid #6a1b9a;
+}
+.asaba-tile:hover {
+  background: #581580;
+  box-shadow: 0 3px 8px rgba(106, 27, 154, 0.25);
+}
+.explanation-box {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #1c1e21;
+  background: #ffffff;
+  border: 2px solid #2e7d32;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin: 0 auto 10px auto;
+  max-width: 1000px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+.explanation-box p {
+  margin: 0;
+}
+
+.center-arrow {
+  display: flex;
+  justify-content: center;
+  margin: 6px auto 4px auto;
+  max-width: 1000px;
+}
+.center-arrow .arrow-down {
+  font-size: 28px;
+  color: #0b5394;
+  animation: bounceDown 1.2s ease-in-out infinite;
+}
+
+.determiner-hint {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0b5394;
+  margin: 0 auto 10px auto;
+  max-width: 1000px;
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+.asaba-empty {
+  margin: 0 0 10px 0;
+  color: #8a8f98;
+  font-style: italic;
+}
+
+/* Extended Asaba panel */
+.extended-trigger {
+  text-align: center;
+}
+.action-btn.secondary {
+  background: #6a1b9a;
+}
+.action-btn.secondary:hover {
+  background: #581580;
+}
+.extended-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.extended-tile {
+  background: #f7f3fb;
+  border: 1px solid #d2b6e8;
+  color: #6a1b9a;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+.extended-tile:hover {
+  background: #ede4f7;
+  border-color: #b085d5;
+}
+.extended-tile.active {
+  background: #6a1b9a;
+  color: #fff;
+  border-color: #6a1b9a;
+}
+.radd-prompt {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 8px;
+}
+
+/* Empty slot left behind when a tile moves to the Asaba canvas. */
+.tile.placeholder {
+  visibility: hidden;
+  pointer-events: none;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* Follow-up question tiles (amber), turning green with a fraction when answered. */
+.question-tile {
+  background: #fff3d6;
+  border: 1px solid #e6c873;
+  color: #7a5b00;
+}
+.question-tile:hover {
+  background: #ffe9b0;
+}
+.question-tile.answered {
+  background: #2e7d32;
+  border-color: #2e7d32;
+  color: #fff;
+}
+.tile-share {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.25);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* Submit button + calculator section */
+.submit-row {
+  max-width: 1000px;
+  margin: 0 auto 28px auto;
+  text-align: center;
+}
+.action-btn {
+  padding: 10px 22px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  background: #0b5394;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.action-btn:hover {
+  background: #094277;
+}
+
+#calc-group {
+  border-color: #c9a8e0;
+}
+#calc-group .group-title {
+  color: #6a1b9a;
+}
+
+.share-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.share-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.share-name {
+  min-width: 220px;
+  font-weight: 600;
+}
+.share-input,
+.asaba-input-row input {
+  padding: 8px 10px;
+  border: 1px solid #c0c6cf;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 120px;
+}
+
+.asaba-input-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
+.asaba-input-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.calc-result {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: #f7f3fb;
+  border: 1px solid #e3d5f0;
+  border-radius: 8px;
+}
+.calc-result ul {
+  margin: 8px 0 0 0;
+  padding-left: 20px;
+}
+.calc-result li {
+  margin: 4px 0;
+}
+.calc-msg {
+  margin: 0;
+  font-weight: 600;
+}
+.calc-msg.ok {
+  color: #2e7d32;
+}
+.calc-msg.warn {
+  color: #b26a00;
+}
+.calc-error {
+  color: #c0392b;
+  font-weight: 600;
+  margin-top: 12px;
+}
