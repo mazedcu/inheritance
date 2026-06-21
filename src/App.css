@@ -168,6 +168,36 @@ body {
   border-color: #2e7d32;
 }
 
+/* Daughter tiles (light blue) */
+.daughter-tile {
+  background: #d4e6f9;
+  border: 1px solid #9fc5e8;
+}
+.daughter-tile:hover {
+  background: #b8d4f3;
+  box-shadow: 0 3px 8px rgba(11, 83, 148, 0.2);
+}
+.daughter-tile.active {
+  background: #2e7d32;
+  color: #fff;
+  border-color: #2e7d32;
+}
+
+/* Mother tiles (light brown) */
+.mother-tile {
+  background: #f5e6d3;
+  border: 1px solid #e0c9a8;
+}
+.mother-tile:hover {
+  background: #ebd8c0;
+  box-shadow: 0 3px 8px rgba(139, 90, 43, 0.2);
+}
+.mother-tile.active {
+  background: #2e7d32;
+  color: #fff;
+  border-color: #2e7d32;
+}
+
 /* Asaba group (purple) */
 #asaba-group {
   border-color: #d2b6e8;

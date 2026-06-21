@@ -14,20 +14,20 @@ const determinerTiles = [
   { key: "fathers-father", label: "Father's Father" },
 ];
 
-// Canvas group 2: jawil furud (12 tiles)
+// Canvas group 2: jawil furud (13 tiles)
 const jawilFurudTiles = [
   { key: "daughter", label: "Daughter" },
-  { key: "sons-daughter", label: "Son's Daughter" },
-  { key: "sons-sons-daughter", label: "Son's Son's Daughter" },
+  { key: "sons-daughter", label: "Son's Daughter", className: "daughter-tile" },
+  { key: "sons-sons-daughter", label: "Son's Son's Daughter", className: "daughter-tile" },
   { key: "husband", label: "Husband" },
   { key: "wife", label: "Wife" },
   { key: "real-sister", label: "Real Sister" },
   { key: "paternal-sister", label: "Paternal Sister" },
-  { key: "mother", label: "Mother" },
+  { key: "mother", label: "Mother", className: "mother-tile" },
+  { key: "mothers-mother", label: "Mother's Mother", className: "mother-tile" },
   { key: "father", label: "Father" },
   { key: "fathers-father", label: "Father's Father" },
   { key: "fathers-mother", label: "Father's Mother" },
-  { key: "mothers-mother", label: "Mother's Mother" },
   { key: "maternal-brother", label: "Maternal Brother" },
   { key: "maternal-sister", label: "Maternal Sister" },
 ];
