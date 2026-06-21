@@ -78,7 +78,7 @@ const asabaRules = [
 // Hover definitions for specific tiles.
 const tileDefinitions = {
   children: "Children include: Son, Son's Son, Son's Son's Son, Daughter, Son's Daughter, Son's Son's Daughter, Son's Son's Son's Daughter.",
-  ikhwa: "Ikhwa: siblings from the same mother (uterine siblings).",
+  ikhwa: "Having 2 or more living siblings irrespective of gender from real, paternal or maternal relationship in any combination.",
   "maternal-siblings": "Siblings from same mother but different father due to marriage of mother more than once.",
   "paternal-sister": "Sister from same father but different mother.",
 };
