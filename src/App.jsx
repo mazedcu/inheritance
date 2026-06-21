@@ -80,6 +80,7 @@ const tileDefinitions = {
   children: "Children include: Son, Son's Son, Son's Son's Son, Daughter, Son's Daughter, Son's Son's Daughter, Son's Son's Son's Daughter.",
   ikhwa: "Ikhwa: siblings from the same mother (uterine siblings).",
   "maternal-siblings": "Siblings from same mother but different father due to marriage of mother more than once.",
+  "paternal-sister": "Sister from same father but different mother.",
 };
 
 // Extended Asaba (ʿaṣaba al-naṣab — agnatic residuaries) hierarchy.
