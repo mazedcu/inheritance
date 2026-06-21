@@ -79,7 +79,7 @@ const asabaRules = [
 const tileDefinitions = {
   children: "Children include: Son, Son's Son, Son's Son's Son, Daughter, Son's Daughter, Son's Son's Daughter, Son's Son's Son's Daughter.",
   ikhwa: "Ikhwa: siblings from the same mother (uterine siblings).",
-  "maternal-siblings": "Maternal siblings: brothers and/or sisters from the same mother only.",
+  "maternal-siblings": "Siblings from same mother but different father due to marriage of mother more than once.",
 };
 
 // Extended Asaba (ʿaṣaba al-naṣab — agnatic residuaries) hierarchy.
