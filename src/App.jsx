@@ -772,6 +772,7 @@ export default function App() {
                 active
                 onClick={() => toggleKey(key)}
                 layoutId={movableKeys.has(key) ? key : undefined}
+                tooltip={tileDefinitions[key]}
               />
             ))}
           </div>

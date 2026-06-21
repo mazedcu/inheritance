@@ -76,10 +76,10 @@ body {
   position: absolute;
   bottom: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%) scale(0.95);
+  transform: translateX(-50%);
   background: #fff176;
   color: #1a1a1a;
-  border: 1px solid #f9a825;
+  border: 1.5px solid #f9a825;
   padding: 10px 14px;
   border-radius: 4px;
   font-size: 13px;
@@ -90,10 +90,11 @@ body {
   min-width: 180px;
   max-width: 280px;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.15s ease, transform 0.15s ease;
-  z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.12s ease, visibility 0.12s ease;
+  z-index: 9999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .custom-tooltip::after {
@@ -109,7 +110,7 @@ body {
 
 .tile:hover .custom-tooltip {
   opacity: 1;
-  transform: translateX(-50%) scale(1);
+  visibility: visible;
 }
 
 /* Slow vanish: fade out in place, leaving an equal empty space behind. */
