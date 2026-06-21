@@ -28,18 +28,20 @@ const jawilFurudTiles = [
   { key: "fathers-father", label: "Father's Father" },
   { key: "fathers-mother", label: "Father's Mother" },
   { key: "mothers-mother", label: "Mother's Mother" },
-  { key: "maternal-siblings", label: "Maternal Siblings" },
+  { key: "maternal-brother", label: "Maternal Brother" },
+  { key: "maternal-sister", label: "Maternal Sister" },
 ];
 
 // Determiner key -> tiles that vanish when that determiner is selected.
 const hideRules = {
-  children: ["paternal-sister", "maternal-siblings"],
+  children: ["paternal-sister", "maternal-brother", "maternal-sister"],
   son: [
     "sons-daughter",
     "sons-sons-daughter",
     "real-sister",
     "paternal-sister",
-    "maternal-siblings",
+    "maternal-brother",
+    "maternal-sister",
   ],
   "sons-son": ["real-sister"],
   "real-brother": ["paternal-sister"],
@@ -47,9 +49,10 @@ const hideRules = {
     "fathers-father",
     "real-sister",
     "paternal-sister",
-    "maternal-siblings",
+    "maternal-brother",
+    "maternal-sister",
   ],
-  "fathers-father": ["real-sister", "paternal-sister", "maternal-siblings"],
+  "fathers-father": ["real-sister", "paternal-sister", "maternal-brother", "maternal-sister"],
   husband: ["wife"],
   wife: ["husband"],
   mother: ["fathers-mother", "mothers-mother"],
@@ -80,7 +83,8 @@ const asabaRules = [
 const tileDefinitions = {
   children: "Children include: Son, Son's Son, Son's Son's Son, Daughter, Son's Daughter, Son's Son's Daughter, Son's Son's Son's Daughter.",
   ikhwa: "Having 2 or more living siblings irrespective of gender from real, paternal or maternal relationship in any combination.",
-  "maternal-siblings": "Siblings from same mother but different father due to marriage of mother more than once.",
+  "maternal-brother": "Siblings from same mother but different father due to marriage of mother more than once.",
+  "maternal-sister": "Siblings from same mother but different father due to marriage of mother more than once.",
   "paternal-sister": "Sister from same father but different mother.",
 };
 
@@ -148,8 +152,15 @@ const shareQuestions = {
     one: "1/2",
     many: "2/3",
   },
-  "maternal-siblings": {
-    noun: "maternal sibling",
+  "maternal-brother": {
+    noun: "maternal brother",
+    // Excluded by children / son / father / father's father.
+    blockers: ["children", "son", "father", "fathers-father"],
+    one: "1/6",
+    many: "1/3",
+  },
+  "maternal-sister": {
+    noun: "maternal sister",
     // Excluded by children / son / father / father's father.
     blockers: ["children", "son", "father", "fathers-father"],
     one: "1/6",
