@@ -30,11 +30,12 @@ const jawilFurudTiles = [
   { key: "mothers-mother", label: "Mother's Mother", className: "mother-tile" },
   { key: "maternal-brother", label: "Maternal Brother" },
   { key: "maternal-sister", label: "Maternal Sister" },
+  { key: "all-maternal-sibling", label: "All Maternal Sibling" },
 ];
 
 // Determiner key -> tiles that vanish when that determiner is selected.
 const hideRules = {
-  children: ["paternal-sister", "maternal-brother", "maternal-sister"],
+  children: ["paternal-sister", "maternal-brother", "maternal-sister", "all-maternal-sibling"],
   son: [
     "sons-daughter",
     "sons-sons-daughter",
@@ -42,6 +43,7 @@ const hideRules = {
     "paternal-sister",
     "maternal-brother",
     "maternal-sister",
+    "all-maternal-sibling",
   ],
   "sons-son": ["real-sister"],
   "real-brother": ["paternal-sister"],
@@ -51,8 +53,9 @@ const hideRules = {
     "paternal-sister",
     "maternal-brother",
     "maternal-sister",
+    "all-maternal-sibling",
   ],
-  "fathers-father": ["real-sister", "paternal-sister", "maternal-brother", "maternal-sister"],
+  "fathers-father": ["real-sister", "paternal-sister", "maternal-brother", "maternal-sister", "all-maternal-sibling"],
   husband: ["wife"],
   wife: ["husband"],
   mother: ["fathers-mother", "mothers-mother"],
@@ -85,6 +88,7 @@ const tileDefinitions = {
   ikhwa: "Having 2 or more living siblings irrespective of gender from real, paternal or maternal relationship in any combination.",
   "maternal-brother": "Brother from same mother but different father due to marriage of mother more than once.",
   "maternal-sister": "Sister from same mother but different father due to marriage of mother more than once.",
+  "all-maternal-sibling": "Having both maternal brother and maternal sister from same mother but different father due to marriage of mother more than once.",
   "paternal-sister": "Sister from same father but different mother.",
 };
 
@@ -295,7 +299,40 @@ export default function App() {
   const [extendedAsabaKey, setExtendedAsabaKey] = useState(null);
   const [showExtendedPanel, setShowExtendedPanel] = useState(false);
 
+  const isOn = (key) => activeKeys.includes(key);
+
   const toggleKey = (key) => {
+    // Special handling for maternal siblings: if one is clicked while the other is active,
+    // replace both with the combined "all maternal sibling" tile
+    if (key === "maternal-sister" && isOn("maternal-brother")) {
+      setActiveKeys((keys) => [
+        ...keys.filter((k) => k !== "maternal-brother"),
+        "all-maternal-sibling",
+      ]);
+      setChoices((c) => {
+        const next = { ...c };
+        delete next["maternal-brother"];
+        return next;
+      });
+      return;
+    }
+    if (key === "maternal-brother" && isOn("maternal-sister")) {
+      setActiveKeys((keys) => [
+        ...keys.filter((k) => k !== "maternal-sister"),
+        "all-maternal-sibling",
+      ]);
+      setChoices((c) => {
+        const next = { ...c };
+        delete next["maternal-sister"];
+        return next;
+      });
+      return;
+    }
+    // If clicking all-maternal-sibling, turn it off (no follow-up for this tile)
+    if (key === "all-maternal-sibling" && activeKeys.includes(key)) {
+      setActiveKeys((keys) => keys.filter((k) => k !== key));
+      return;
+    }
     // Turning a tile off clears its follow-up answer.
     if (activeKeys.includes(key)) {
       setChoices((c) => {
@@ -321,12 +358,15 @@ export default function App() {
     choiceHidden.push("sons-sons-daughter");
   if (choices["real-sister"] === "many") choiceHidden.push("paternal-sister");
 
+  // Special handling for maternal siblings: when both are selected, show combined tile
+  const bothMaternalSelected = isOn("maternal-brother") && isOn("maternal-sister");
+
   const hidden = [
     ...activeKeys.flatMap((key) => hideRules[key] || []),
     ...choiceHidden,
+    // When both maternal siblings are selected, hide individual tiles
+    ...(bothMaternalSelected ? ["maternal-brother", "maternal-sister"] : []),
   ];
-
-  const isOn = (key) => activeKeys.includes(key);
 
   // Grandmother shares (only when Mother is absent).
   // Father's mother: 1/6 if Shafi; if Hanafi/Maliki, 1/6 only when no Father.
@@ -390,6 +430,8 @@ export default function App() {
     // after a madhab is chosen).
     if (key === "mothers-mother") return mmShare;
     if (key === "fathers-mother") return fmShare;
+    // All maternal sibling: 1/3 when both maternal brother and sister are selected
+    if (key === "all-maternal-sibling") return isOn("maternal-brother") && isOn("maternal-sister") ? "1/3" : null;
     return null;
   };
 
