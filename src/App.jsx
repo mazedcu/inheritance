@@ -722,7 +722,7 @@ export default function App() {
                 />,
               ];
             }
-            return [renderHomeTile(tile, "furud-tile")];
+            return [renderHomeTile(tile, tile.className || "furud-tile")];
           })}
         </AnimatePresence>
       </CanvasGroup>
