@@ -127,12 +127,22 @@ body {
   position: relative;
 }
 
-.tile:not(.placeholder):hover {
+.tile:not(.placeholder):not(.movable):hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-md);
 }
-.tile:not(.placeholder):active {
+.tile:not(.placeholder):not(.movable):active {
   transform: translateY(-1px);
+}
+
+/* Movable tiles are animated by Framer Motion (which controls transform),
+   so exclude transform from the CSS transition to keep movement smooth. */
+.tile.movable {
+  transition: background 0.18s ease, box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+.tile.movable:not(.placeholder):hover {
+  box-shadow: var(--shadow-md);
 }
 
 .custom-tooltip {

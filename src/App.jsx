@@ -234,7 +234,7 @@ function Tile({ tile, active, hidden, onClick, groupClass, layoutId, share, tool
       <motion.div
         layout="position"
         layoutId={layoutId}
-        className={className}
+        className={`${className} movable`}
         onClick={onClick}
         animate={{ opacity: hidden ? 0 : 1, scale: hidden ? 0.85 : 1 }}
         transition={moveTransition}
