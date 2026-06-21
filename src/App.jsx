@@ -203,11 +203,15 @@ function Tile({ tile, active, hidden, onClick, groupClass, layoutId, share, tool
       {share && <span className="tile-share">{share}</span>}
     </>
   );
-  const titleAttr = tooltip || undefined;
+
+  const inner = (
+    <>
+      {content}
+      {tooltip && <span className="custom-tooltip">{tooltip}</span>}
+    </>
+  );
 
   if (layoutId) {
-    // Framer controls opacity/scale here because layoutId sets inline opacity,
-    // which would otherwise override the CSS `.vanished` fade.
     return (
       <motion.div
         layout="position"
@@ -216,16 +220,15 @@ function Tile({ tile, active, hidden, onClick, groupClass, layoutId, share, tool
         onClick={onClick}
         animate={{ opacity: hidden ? 0 : 1, scale: hidden ? 0.85 : 1 }}
         transition={moveTransition}
-        title={titleAttr}
       >
-        {content}
+        {inner}
       </motion.div>
     );
   }
 
   return (
-    <div className={className} onClick={onClick} title={titleAttr}>
-      {content}
+    <div className={className} onClick={onClick}>
+      {inner}
     </div>
   );
 }

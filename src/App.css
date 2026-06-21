@@ -61,14 +61,55 @@ body {
   font-weight: 600;
   cursor: pointer;
   user-select: none;
-  overflow: hidden;
+  overflow: visible;
   white-space: nowrap;
   opacity: 1;
   transition: background 0.12s ease, box-shadow 0.12s ease;
+  position: relative;
 }
 
 .tile:not(.placeholder):hover {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.custom-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  background: #fff176;
+  color: #1a1a1a;
+  border: 1px solid #f9a825;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: normal;
+  text-align: center;
+  min-width: 180px;
+  max-width: 280px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.custom-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #f9a825 transparent transparent transparent;
+}
+
+.tile:hover .custom-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
 }
 
 /* Slow vanish: fade out in place, leaving an equal empty space behind. */
