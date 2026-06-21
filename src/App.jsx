@@ -59,6 +59,8 @@ const hideRules = {
   husband: ["wife"],
   wife: ["husband"],
   mother: ["fathers-mother", "mothers-mother"],
+  // The combined tile hides the individual maternal sibling tiles.
+  "all-maternal-sibling": ["maternal-brother", "maternal-sister"],
 };
 
 // Lookup of every tile by key (for rendering them in the Asaba group).
@@ -427,8 +429,8 @@ export default function App() {
     // after a madhab is chosen).
     if (key === "mothers-mother") return mmShare;
     if (key === "fathers-mother") return fmShare;
-    // All maternal sibling: 1/3 when both maternal brother and sister are selected
-    if (key === "all-maternal-sibling") return isOn("maternal-brother") && isOn("maternal-sister") ? "1/3" : null;
+    // All maternal sibling: 1/3 when the combined tile is active
+    if (key === "all-maternal-sibling") return isOn(key) ? "1/3" : null;
     return null;
   };
 
