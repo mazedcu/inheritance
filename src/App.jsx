@@ -306,23 +306,25 @@ export default function App() {
     // replace both with the combined "all maternal sibling" tile
     if (key === "maternal-sister" && isOn("maternal-brother")) {
       setActiveKeys((keys) => [
-        ...keys.filter((k) => k !== "maternal-brother"),
+        ...keys.filter((k) => k !== "maternal-brother" && k !== "maternal-sister"),
         "all-maternal-sibling",
       ]);
       setChoices((c) => {
         const next = { ...c };
         delete next["maternal-brother"];
+        delete next["maternal-sister"];
         return next;
       });
       return;
     }
     if (key === "maternal-brother" && isOn("maternal-sister")) {
       setActiveKeys((keys) => [
-        ...keys.filter((k) => k !== "maternal-sister"),
+        ...keys.filter((k) => k !== "maternal-brother" && k !== "maternal-sister"),
         "all-maternal-sibling",
       ]);
       setChoices((c) => {
         const next = { ...c };
+        delete next["maternal-brother"];
         delete next["maternal-sister"];
         return next;
       });
@@ -358,14 +360,9 @@ export default function App() {
     choiceHidden.push("sons-sons-daughter");
   if (choices["real-sister"] === "many") choiceHidden.push("paternal-sister");
 
-  // Special handling for maternal siblings: when both are selected, show combined tile
-  const bothMaternalSelected = isOn("maternal-brother") && isOn("maternal-sister");
-
   const hidden = [
     ...activeKeys.flatMap((key) => hideRules[key] || []),
     ...choiceHidden,
-    // When both maternal siblings are selected, hide individual tiles
-    ...(bothMaternalSelected ? ["maternal-brother", "maternal-sister"] : []),
   ];
 
   // Grandmother shares (only when Mother is absent).
