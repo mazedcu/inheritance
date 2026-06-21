@@ -168,14 +168,14 @@ body {
   border-color: #2e7d32;
 }
 
-/* Daughter tiles (light blue) */
+/* Daughter tiles (light pink) */
 .daughter-tile {
-  background: #d4e6f9;
-  border: 1px solid #9fc5e8;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
 }
 .daughter-tile:hover {
-  background: #b8d4f3;
-  box-shadow: 0 3px 8px rgba(11, 83, 148, 0.2);
+  background: #f1c0c4;
+  box-shadow: 0 3px 8px rgba(220, 53, 69, 0.2);
 }
 .daughter-tile.active {
   background: #2e7d32;
