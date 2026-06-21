@@ -742,6 +742,11 @@ export default function App() {
       <CanvasGroup id="jawil-furud-group" title="Jawil Furud">
         <AnimatePresence>
           {jawilFurudTiles.flatMap((tile) => {
+            // The combined "all maternal sibling" tile only appears once both
+            // maternal siblings have been merged into it.
+            if (tile.key === "all-maternal-sibling" && !isOn(tile.key)) {
+              return [];
+            }
             // A daughter-type tile (with no blocker) vanishes and reveals
             // its "one / more than one" follow-up tiles.
             if (showQuestion(tile.key)) {
