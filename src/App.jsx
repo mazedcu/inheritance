@@ -37,6 +37,8 @@ const jawilFurudTiles = [
 const hideRules = {
   children: ["paternal-sister", "maternal-brother", "maternal-sister", "all-maternal-sibling"],
   son: [
+    "sons-son",
+    "sons-sons-son",
     "sons-daughter",
     "sons-sons-daughter",
     "real-sister",
