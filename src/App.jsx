@@ -510,7 +510,7 @@ export default function App() {
   // Active Jawil Furud tiles that aren't hidden and haven't physically moved
   // into an Asaba pair. Tiles like Father (1/6 + Asaba copy) are kept.
   const furudSharers = jawilFurudTiles.filter(
-    (t) => isOn(t.key) && !hidden.includes(t.key) && !asabaKeys.includes(t.key)
+    (t) => isOn(t.key) && !hidden.includes(t.key) && !asabaKeys.includes(t.key) && !asabaItems.includes(t.key)
   );
 
   // Best-known share string for a furud key (used to pre-fill the inputs).
