@@ -457,10 +457,15 @@ export default function App() {
   };
   const ascendantMovesToAsaba = (key) =>
     ascendantInAsaba(key) && !isOn("children");
+  // Male descendants (son, son's son, son's son's son) are always Asaba.
+  const maleDescendantKeys = ["son", "sons-son", "sons-sons-son"];
+  const maleDescendantInAsaba = (key) => maleDescendantKeys.includes(key) && isOn(key);
   const asabaItems = [
     ...asabaKeys,
     ...["father", "fathers-father"].filter(ascendantInAsaba),
     ...(extendedAsabaKey ? [extendedAsabaKey] : []),
+    // Add male descendants that aren't already in asabaKeys (pair rules).
+    ...maleDescendantKeys.filter((k) => isOn(k) && !asabaKeys.includes(k)),
   ];
 
   // Children present + Real Sister active (no Real Brother) → Real Sister goes
@@ -680,7 +685,11 @@ export default function App() {
   // Render a tile in its home group. If it has moved to Asaba, leave an
   // equal-sized empty placeholder so the layout doesn't shift.
   const renderHomeTile = (tile, groupClass) => {
-    if (asabaKeys.includes(tile.key) || ascendantMovesToAsaba(tile.key)) {
+    if (
+      asabaKeys.includes(tile.key) ||
+      ascendantMovesToAsaba(tile.key) ||
+      maleDescendantInAsaba(tile.key)
+    ) {
       return (
         <Placeholder key={tile.key} tile={tile} groupClass={groupClass} />
       );
