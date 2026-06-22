@@ -490,6 +490,22 @@ export default function App() {
     asabaItems.push("real-sister");
   }
 
+  // Children present + Paternal Sister active (no Father, Father's Father, Real Brother,
+  // Real Sister, Paternal Brother) → Paternal Sister goes to Asaba as a residuary,
+  // but only if there's no existing Asaba already.
+  if (
+    isOn("children") &&
+    isOn("paternal-sister") &&
+    !isOn("father") &&
+    !isOn("fathers-father") &&
+    !isOn("real-brother") &&
+    !isOn("real-sister") &&
+    !isOn("paternal-brother") &&
+    asabaItems.length === 0
+  ) {
+    asabaItems.push("paternal-sister");
+  }
+
   // ---- Share calculator helpers ----
   // Active Jawil Furud tiles that aren't hidden and haven't physically moved
   // into an Asaba pair. Tiles like Father (1/6 + Asaba copy) are kept.
@@ -699,7 +715,8 @@ export default function App() {
     if (
       asabaKeys.includes(tile.key) ||
       ascendantMovesToAsaba(tile.key) ||
-      maleDescendantInAsaba(tile.key)
+      maleDescendantInAsaba(tile.key) ||
+      (tile.key === "paternal-sister" && asabaItems.includes("paternal-sister"))
     ) {
       return (
         <Placeholder key={tile.key} tile={tile} groupClass={groupClass} />
