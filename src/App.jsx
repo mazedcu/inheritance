@@ -35,7 +35,7 @@ const jawilFurudTiles = [
 
 // Determiner key -> tiles that vanish when that determiner is selected.
 const hideRules = {
-  children: ["paternal-sister", "maternal-brother", "maternal-sister", "all-maternal-sibling"],
+  children: ["maternal-brother", "maternal-sister", "all-maternal-sibling"],
   son: [
     "sons-son",
     "sons-sons-son",
