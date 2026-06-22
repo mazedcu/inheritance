@@ -47,7 +47,7 @@ const hideRules = {
     "maternal-sister",
     "all-maternal-sibling",
   ],
-  "sons-son": ["real-sister"],
+  "sons-son": ["sons-sons-son", "real-sister"],
   "real-brother": ["paternal-sister"],
   father: [
     "fathers-father",
@@ -462,12 +462,16 @@ export default function App() {
   // Male descendants (son, son's son, son's son's son) are always Asaba.
   const maleDescendantKeys = ["son", "sons-son", "sons-sons-son"];
   const maleDescendantInAsaba = (key) => maleDescendantKeys.includes(key) && isOn(key);
+  // Real brother is always Asaba when active.
+  const realBrotherInAsaba = isOn("real-brother");
   const asabaItems = [
     ...asabaKeys,
     ...["father", "fathers-father"].filter(ascendantInAsaba),
     ...(extendedAsabaKey ? [extendedAsabaKey] : []),
     // Add male descendants that aren't already in asabaKeys (pair rules).
     ...maleDescendantKeys.filter((k) => isOn(k) && !asabaKeys.includes(k)),
+    // Add real brother if active and not already in asabaKeys.
+    ...(realBrotherInAsaba && !asabaKeys.includes("real-brother") ? ["real-brother"] : []),
   ];
 
   // Children present + Real Sister active (no Real Brother) → Real Sister goes
